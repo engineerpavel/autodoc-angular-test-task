@@ -1,1 +1,20 @@
+@import 'vars';
+@import "reset";
+
 /* You can add global styles to this file, and also import other style files */
+
+@font-face {
+  font-family: Inter;
+  src: url(assets/font/inter.ttf) format("truetype-variations");
+}
+
+html {
+  font-family: Inter, serif;
+}
+
+body {
+  margin: 0;
+}
+
+
+

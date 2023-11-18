@@ -1,0 +1,55 @@
+@import 'vars';
+
+:host {
+  height: 108px;
+  width: 100%;
+}
+
+.bar {
+  display: flex;
+  padding: 0 240px;
+  margin: 24px 0;
+  justify-content: space-between;
+  align-items: center;
+  @media (max-width: $pad) {
+    padding: 0 32px;
+  }
+
+  @media (max-width: $mobile) {
+    height: 104px;
+    padding: 0 16px;
+    margin: 21px 0 23px 0;
+  }
+
+  @media (max-width: $mobile) {
+
+    //do smth
+  }
+}
+
+.text {
+  @include text2;
+  height: 26px;
+  display: flex;
+  align-items: center;
+
+  @media (max-width: $mobile) {
+    @include text4;
+  }
+}
+
+.icon,
+.button {
+  img {
+    width: 60px;
+    @media (max-width: $mobile) {
+      width: 30px;
+    }
+  }
+}
+
+.button {
+  cursor: pointer;
+}
+
+
