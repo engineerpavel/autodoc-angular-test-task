@@ -8,4 +8,6 @@ import { CommonModule } from '@angular/common';
   templateUrl: './news-feed.component.html',
   styleUrl: './news-feed.component.scss'
 })
-export class NewsFeedComponent {}
+export class NewsFeedComponent {
+  cards = [{ name: 1 }, { name: 'sdfs' }, { name: 8 }, { name: 453 }, { name: 333 }];
+}

@@ -1,11 +1,7 @@
 @import 'vars';
 
-:host {
-  height: 108px;
-  width: 100%;
-}
-
 .bar {
+  height: 108px;
   display: flex;
   padding: 0 240px;
   margin: 24px 0;
@@ -19,11 +15,6 @@
     height: 104px;
     padding: 0 16px;
     margin: 21px 0 23px 0;
-  }
-
-  @media (max-width: $mobile) {
-
-    //do smth
   }
 }
 

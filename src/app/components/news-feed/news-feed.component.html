@@ -1,1 +1,11 @@
-<p>news-feed works!</p>
+<div class='feed'>
+  <div class='header'>
+    Автомобильные новости
+  </div>
+  <div class='cards'>
+    @for (card of cards; track card.name) {
+      {{card.name}}
+    }
+  </div>
+</div>
+

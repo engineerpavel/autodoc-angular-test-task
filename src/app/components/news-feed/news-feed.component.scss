@@ -1,0 +1,21 @@
+@import 'vars';
+
+.feed {
+  padding: 40px 240px 0;
+  width: 100%;
+  @media (max-width: $pad) {
+    padding: 0 32px;
+  }
+  @media (max-width: $mobile) {
+    padding: 0 16px;
+  }
+}
+
+.header {
+  @include heading1;
+}
+
+.cards {
+  padding: 40px;
+  display: flex;
+}
