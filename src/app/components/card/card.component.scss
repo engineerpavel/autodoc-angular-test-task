@@ -1,0 +1,26 @@
+@import 'vars';
+
+:host {
+  display: flex;
+  flex-direction: column;
+  width: 464px;
+}
+
+img {
+  height: 379px;
+
+}
+
+.date {
+  margin: 16px 0;
+  padding: 8px 12px;
+  border-radius: 25px;
+  background: $black-05;
+  width: fit-content;
+  @include text2;
+}
+
+.text {
+  height: 90px;
+  @include text1;
+}
