@@ -8,6 +8,4 @@ import { CommonModule } from '@angular/common';
   templateUrl: './news-feed.component.html',
   styleUrl: './news-feed.component.scss'
 })
-export class NewsFeedComponent {
-
-}
+export class NewsFeedComponent {}
