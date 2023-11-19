@@ -3,7 +3,7 @@
     Автомобильные новости
   </div>
   <div class='cards'>
-    @for (card of cards; track card.name) {
+    @for (card of cards | async; track card.name) {
       <app-card></app-card>
     }
   </div>
