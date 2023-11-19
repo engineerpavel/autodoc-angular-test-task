@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NewsFeedInterface } from '../../models/newsFeedInterface';
+import { NewsFeedInterface } from '../../models/news.interface';
 
 @Component({
   selector: 'app-card',

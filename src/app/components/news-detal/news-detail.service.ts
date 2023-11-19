@@ -2,7 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { BASE_API_URL } from '../../app.config';
-import { NewsDetailInterface } from '../../models/newsFeedInterface';
+import { NewsDetailInterface } from '../../models/news.interface';
 
 @Injectable()
 /**
