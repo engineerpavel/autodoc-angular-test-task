@@ -3,8 +3,8 @@
     Автомобильные новости
   </div>
   <div class='cards'>
-    @for (card of cards | async; track card.name) {
-      <app-card></app-card>
+    @for (card of cards | async; track $index) {
+      <app-card [cardData]=card></app-card>
     }
   </div>
 </div>

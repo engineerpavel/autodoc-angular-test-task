@@ -12,8 +12,10 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: './news-feed.component.html',
   styleUrl: './news-feed.component.scss'
 })
+/**
+ * Компонент со списком новостей
+ */
 export class NewsFeedComponent {
-  // cards = [{ name: 1 }, { name: 'sdfs' }, { name: 8 }, { name: 453 }, { name: 333 }];
   newsFeedService = inject(NewsFeedService);
   cards = this.newsFeedService.getNewsFeed();
 }

@@ -1,7 +1,7 @@
-<img src='assets/icons/car.png'>
+<img src='{{cardData?.titleImageUrl}}'>
 <div class='date'>
-  03.06.2023
+  {{cardData?.publishedDate | date: 'dd.MM.yyyy'}}
 </div>
 <div class='text'>
-  Toyota Yaris 2023 с расширенной линейкой гибридов
+  {{cardData?.title}}
 </div>
