@@ -1,8 +1,8 @@
-export interface NewsArrInterface {
-  news: [NewsInterface];
+export interface NewsFeedArrInterface {
+  news: [NewsFeedInterface];
 }
 
-export interface NewsInterface {
+export interface NewsFeedInterface {
   categoryType: string;
   description: string;
   fullUrl: string;
@@ -11,4 +11,16 @@ export interface NewsInterface {
   title: string;
   titleImageUrl: string;
   url: string;
+}
+
+export interface NewsDetailInterface {
+  id: number;
+  title: string;
+  description: string;
+  text: string;
+  publishedDate: string;
+  url: string;
+  fullUrl: string;
+  titleImageUrl: string;
+  categoryType: string;
 }

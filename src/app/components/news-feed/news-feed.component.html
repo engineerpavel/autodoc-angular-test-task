@@ -1,10 +1,10 @@
 <div class='feed'>
-  <div class='header'>
+  <a class='header'>
     Автомобильные новости
-  </div>
+  </a>
   <div class='cards'>
     @for (card of cards | async; track $index) {
-      <app-card [cardData]=card></app-card>
+      <app-card [cardData]=card [routerLink]="['/news/', card.url]"></app-card>
     }
   </div>
 </div>
