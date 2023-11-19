@@ -23,7 +23,8 @@ https://webapi.autodoc.ru/api/news/item/avto-novosti/volkswagen_amarok_pickup
 
 # AutodocAngularTestTask
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.0.0.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.0.3.
+Node version: v20.9.0
 
 ## Development server
 

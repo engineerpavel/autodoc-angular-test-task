@@ -6,6 +6,7 @@ import { NewsArrInterface, NewsInterface } from '../../models/news.interface';
 
 /**
  * Сервис для работы с лентой новостей
+ * TODO: Бесконечный скролл
  */
 @Injectable()
 export class NewsFeedService {

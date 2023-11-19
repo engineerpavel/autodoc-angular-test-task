@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { CardComponent } from '../card/card.component';
 import { NewsFeedService } from './news-feed.service';
 import { HttpClient } from '@angular/common/http';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-news-feed',
   standalone: true,
-  imports: [CommonModule, CardComponent],
+  imports: [CommonModule, CardComponent, RouterLink],
   providers: [NewsFeedService],
   templateUrl: './news-feed.component.html',
   styleUrl: './news-feed.component.scss'
