@@ -15,6 +15,6 @@ export class NewsFeedService {
    * Получить карточки для ленты новостей
    */
   getNewsFeed(): Observable<any> {
-    return this.httpClient.get(`${this.baseUrl}/webapi.autodoc.ru/api/news/1/10`);
+    return this.httpClient.get(`${this.baseUrl}/api/news/1/10`);
   }
 }
