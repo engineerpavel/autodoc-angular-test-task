@@ -1,0 +1,27 @@
+@import 'vars';
+
+.feed {
+  padding: 40px 240px 0;
+  width: 100%;
+  @media (max-width: $pad) {
+    padding: 0 32px;
+  }
+  @media (max-width: $mobile) {
+    padding: 0 16px;
+  }
+}
+
+.header {
+  @include heading1;
+}
+
+//TODO: column-gap: 24px,
+// разобраться, почему перенос срабатывает
+// Вероятно, гэп добавляется в конце
+.cards {
+  padding-top: 40px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  column-gap: 12px;
+}
