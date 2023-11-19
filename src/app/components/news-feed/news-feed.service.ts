@@ -2,7 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
 import { BASE_API_URL } from '../../app.config';
-import { NewsArrInterface, NewsInterface } from '../../models/news.interface';
+import { NewsFeedArrInterface, NewsFeedInterface } from '../../models/newsFeedInterface';
 
 /**
  * Сервис для работы с лентой новостей
@@ -16,7 +16,7 @@ export class NewsFeedService {
   /**
    * Получить карточки для ленты новостей
    */
-  getNewsFeed(): Observable<NewsInterface[]> {
-    return this.httpClient.get<NewsArrInterface>(`${this.baseUrl}/api/news/1/10`).pipe(map((cards) => cards.news));
+  getNewsFeed(): Observable<NewsFeedInterface[]> {
+    return this.httpClient.get<NewsFeedArrInterface>(`${this.baseUrl}/api/news/1/10`).pipe(map((cards) => cards.news));
   }
 }
