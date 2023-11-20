@@ -18,3 +18,10 @@
 .date {
   margin: 16px 0;
 }
+
+.content {
+  @include text1;
+  p {
+    margin-bottom: 100px;
+  }
+}
