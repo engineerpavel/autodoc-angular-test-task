@@ -12,5 +12,19 @@ import {NewsAddComponent} from "./components/news-add/news-add.component";
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  showPopup = true;
+  showPopup = false;
+
+  /**
+   * Закрыть попап
+   */
+  onClosePopup(): void {
+    this.showPopup = false;
+  }
+
+  /**
+   * Показать попап добавления новости
+   */
+  onShowPopup(): void {
+    this.showPopup = true;
+  }
 }

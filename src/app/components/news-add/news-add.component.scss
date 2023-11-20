@@ -17,8 +17,9 @@
   position: relative;
   flex-direction: column;
   width: 952px;
-  background-color: $white-100;
   padding: 40px 56px;
+  border-radius: 32px;
+  background: $bg-color;
 }
 
 .title {
