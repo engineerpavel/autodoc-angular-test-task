@@ -1,2 +1,6 @@
-<div class='news-detail' [innerHTML]='(newsData| async)?.text'>
+<div class='news-detail'>
+  <div class='header'>{{(newsData| async)?.title}}</div>
+  <div class='date'>{{(newsData| async)?.publishedDate | date: 'dd.MM.yyyy'}}</div>
+  <div *ngIf='newsData' class='content'  [innerHTML]='(newsData| async)?.text | sanitize'>
+  </div>
 </div>

@@ -12,15 +12,7 @@ img {
 border-radius: 32px;
 }
 
-.date {
-  margin: 16px 0;
-  padding: 8px 12px;
-  border-radius: 25px;
-  background: $black-05;
-  width: fit-content;
-  color: $black-80;
-  @include text2;
-}
+
 
 .text {
   height: 90px;

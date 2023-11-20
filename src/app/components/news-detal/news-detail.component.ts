@@ -1,14 +1,24 @@
 import { ChangeDetectionStrategy, Component, inject, Input } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, IMAGE_CONFIG } from '@angular/common';
 import { NewsDetailService } from './news-detail.service';
-import { map, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { NewsDetailInterface } from '../../models/news.interface';
+import { SanitizePipe } from '../../pipes/sanitize.pipe';
 
 @Component({
   selector: 'app-news-detail',
   standalone: true,
-  imports: [CommonModule],
-  providers: [NewsDetailService],
+  imports: [CommonModule, SanitizePipe],
+  providers: [
+    NewsDetailService,
+    {
+      provide: IMAGE_CONFIG,
+      useValue: {
+        disableImageSizeWarning: true,
+        disableImageLazyLoadWarning: true
+      }
+    }
+  ],
   templateUrl: './news-detail.component.html',
   styleUrl: './news-detail.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
