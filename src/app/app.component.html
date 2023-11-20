@@ -1,2 +1,5 @@
-<app-header></app-header>
+<app-header (addNews)="onShowPopup()"></app-header>
 <router-outlet></router-outlet>
+@if (showPopup) {
+  <app-news-add (close)="onClosePopup()"></app-news-add>
+}

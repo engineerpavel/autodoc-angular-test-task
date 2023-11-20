@@ -1,0 +1,90 @@
+@import 'vars';
+
+:host {
+  background: rgba(0, 0, 0, 0.40);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.popup {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  width: 952px;
+  padding: 40px 56px;
+  border-radius: 32px;
+  background: $bg-color;
+}
+
+.title {
+  @include heading2;
+}
+
+.title-input {
+  margin-top: 32px;
+  padding: 24px;
+  background: $black-05;
+  border-radius: 32px;
+  @include text3;
+}
+
+.text-input {
+  margin-top: 24px;
+  display: flex;
+  padding: 24px 24px 16px 24px;
+  border-radius: 32px;
+  background: $black-05;
+  @include text3;
+  height: 207px;
+}
+
+.upload-image {
+  display: flex;
+  margin-top: 24px;
+  border-radius: 32px;
+  border: 1px dashed $link;
+  padding: 16px 24px;
+  justify-content: center;
+  align-items: center;
+  color: $link;
+  @include text3;
+  cursor: pointer;
+}
+
+.submit-news {
+  display: flex;
+  margin-top: 32px;
+  cursor: pointer;
+  padding: 16px 8px;
+  justify-content: center;
+  align-items: center;
+  @include text2;
+  border-radius: 60px;
+  background: $black-100;
+  color: $white-100;
+
+}
+
+.submit-news:disabled {
+  background: $black-10;
+  color: $black-60;
+}
+
+.close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  right: -60px;
+  top: 0;
+  cursor: pointer;
+}
+
