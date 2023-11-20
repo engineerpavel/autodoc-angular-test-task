@@ -1,7 +1,8 @@
 import { ChangeDetectionStrategy, Component, inject, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NewsDetailService } from './news-detail.service';
-import { map } from 'rxjs';
+import { map, Observable } from 'rxjs';
+import { NewsDetailInterface } from '../../models/news.interface';
 
 @Component({
   selector: 'app-news-detail',
@@ -17,8 +18,9 @@ import { map } from 'rxjs';
  */
 export class NewsDetailComponent {
   newsDetailService = inject(NewsDetailService);
+  newsData = new Observable<NewsDetailInterface>();
   @Input()
   set url(urlString: string) {
-    this.newsDetailService.getNewsData(urlString).subscribe((data) => console.log(data.text));
+    this.newsData = this.newsDetailService.getNewsData(urlString);
   }
 }
