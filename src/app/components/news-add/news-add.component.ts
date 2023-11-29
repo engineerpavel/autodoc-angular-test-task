@@ -1,11 +1,12 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, inject, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ImagePreviewComponent } from '../image-preview/image-preview.component';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-news-add',
   standalone: true,
-  imports: [CommonModule, ImagePreviewComponent],
+  imports: [CommonModule, ImagePreviewComponent, ReactiveFormsModule],
   templateUrl: './news-add.component.html',
   styleUrl: './news-add.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -15,6 +16,11 @@ export class NewsAddComponent {
   close = new EventEmitter<void>();
   cdr = inject(ChangeDetectorRef);
   preview = '';
+  newsForm = new FormGroup({
+    title: new FormControl('', { nonNullable: true }),
+    text: new FormControl('', { nonNullable: true }),
+    image: new FormControl('', { nonNullable: true })
+  });
 
   /**
    * Обработчик выбора изображения
@@ -27,12 +33,10 @@ export class NewsAddComponent {
       if (imgFile) {
         const reader = new FileReader();
         reader.onload = (e: any) => {
-          console.log(e.target.result);
           this.preview = e.target.result;
           this.cdr.markForCheck();
         };
         reader.readAsDataURL(imgFile);
-        console.log('загрузили файл');
       }
     }
   }
@@ -42,5 +46,6 @@ export class NewsAddComponent {
    */
   onDeletePreview(): void {
     this.preview = '';
+    this.newsForm.get('image')?.reset();
   }
 }
