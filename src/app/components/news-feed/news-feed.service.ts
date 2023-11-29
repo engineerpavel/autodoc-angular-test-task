@@ -1,8 +1,8 @@
 import { inject, Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { map, Observable } from 'rxjs';
-import { BASE_API_URL } from '../../app.config';
-import { NewsFeedArrInterface, NewsFeedInterface } from '../../models/news.interface';
+import { NewsFeedInterface } from '../../models/news.interface';
+import { NEWS_KEY } from '../../constants/const';
+import { BehaviorSubject, map, Observable, ReplaySubject, tap } from 'rxjs';
+import { NewsFeedApiService } from './news-feed-api.service';
 
 /**
  * Сервис для работы с лентой новостей
@@ -10,13 +10,40 @@ import { NewsFeedArrInterface, NewsFeedInterface } from '../../models/news.inter
  */
 @Injectable()
 export class NewsFeedService {
-  private readonly httpClient = inject(HttpClient);
-  private readonly baseUrl = inject(BASE_API_URL);
+  newsFeedApiService = inject(NewsFeedApiService);
+  serverFeed = new BehaviorSubject<NewsFeedInterface[]>([]);
+  localFeed = new BehaviorSubject<NewsFeedInterface[]>([]);
 
   /**
-   * Получить карточки для ленты новостей
+   * Поместить список новостей из LocalStorage в localFeed
    */
-  getNewsFeed(): Observable<NewsFeedInterface[]> {
-    return this.httpClient.get<NewsFeedArrInterface>(`${this.baseUrl}/api/news/1/10`).pipe(map((cards) => cards.news));
+  initLocalFeed(): void {
+    this.localFeed.next(this.getLocalFeed());
+  }
+
+  setServerFeed(feed: NewsFeedInterface[]): void {
+    this.serverFeed.next(feed);
+  }
+
+  getServerFeed(): Observable<NewsFeedInterface[]> {
+    return this.newsFeedApiService.getNewsFeed().pipe(
+      map((cards) => cards.news),
+      tap((news) => this.setServerFeed(news))
+    );
+  }
+
+  /**
+   * Получить данные из LocalStorage
+   */
+  getLocalFeed(): NewsFeedInterface[] {
+    const newsString = localStorage.getItem(NEWS_KEY);
+    if (newsString) {
+      try {
+        return JSON.parse(newsString);
+      } catch (err) {
+        throw err;
+      }
+    }
+    return [];
   }
 }

@@ -1,9 +1,9 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CardComponent } from '../card/card.component';
 import { NewsFeedService } from './news-feed.service';
-import { HttpClient } from '@angular/common/http';
 import { RouterLink } from '@angular/router';
+import { combineLatest, map } from 'rxjs';
 
 @Component({
   selector: 'app-news-feed',
@@ -16,7 +16,15 @@ import { RouterLink } from '@angular/router';
 /**
  * Компонент со списком новостей
  */
-export class NewsFeedComponent {
+export class NewsFeedComponent implements OnInit {
   newsFeedService = inject(NewsFeedService);
-  cards = this.newsFeedService.getNewsFeed();
+  cards = combineLatest([this.newsFeedService.localFeed, this.newsFeedService.serverFeed]).pipe(
+    map((arr) => {
+      return arr[0].concat(arr[1]);
+    })
+  );
+
+  ngOnInit(): void {
+    this.newsFeedService.getServerFeed().subscribe();
+  }
 }

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ImagePreviewComponent } from '../image-preview/image-preview.component';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NewsFeedInterface } from '../../models/news.interface';
+import { NEWS_KEY } from '../../constants/const';
 
 @Component({
   selector: 'app-news-add',
@@ -22,8 +23,6 @@ export class NewsAddComponent {
     text: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
     image: new FormControl('', { nonNullable: true, validators: [Validators.required] })
   });
-
-  private readonly newsKey = 'newsFeed';
 
   /**
    * Обработчик выбора изображения
@@ -58,7 +57,7 @@ export class NewsAddComponent {
    */
   publish(): void {
     if (this.newsForm.valid) {
-      let newsFeedString = localStorage.getItem(this.newsKey);
+      let newsFeedString = localStorage.getItem(NEWS_KEY);
       let newsFeedArr: NewsFeedInterface[] = [];
       if (newsFeedString) {
         try {
@@ -72,14 +71,14 @@ export class NewsAddComponent {
         categoryType: '',
         description: '',
         fullUrl: '',
-        id: 0,
+        id: Math.random(),
         publishedDate: Date.now().toString(),
         title: this.newsForm.get('title')!.value,
         titleImageUrl: this.preview,
         url: ''
       });
 
-      localStorage.setItem(this.newsKey, JSON.stringify(newsFeedArr));
+      localStorage.setItem(NEWS_KEY, JSON.stringify(newsFeedArr));
       this.close.emit();
     }
   }
