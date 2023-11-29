@@ -1,8 +1,12 @@
-<div class="popup" [@slideInOut]>
+<form class="popup" [formGroup]="newsForm" (ngSubmit)="publish()">
   <div class="title">Добавить новость</div>
-  <input class="title-input" placeholder="Заголовок">
-  <textarea class="text-input" placeholder="Текст"></textarea>
-  <button class="upload-image">Загрузить изображение</button>
-  <button class="submit-news">Опубликовать новость</button>
+  <input formControlName="title" class="title-input" placeholder="Заголовок">
+  <textarea formControlName="text" class="text-input" placeholder="Текст"></textarea>
+  <input formControlName="image" id="upload-image" type="file" accept="image/*" class="upload-image-input" (change)="selectImage($event)"/>
+  <label for="upload-image" class="upload-image">Загрузить изображение</label>
+  @if (preview.length) {
+    <app-image-preview [imageBase64]="preview" (close)="onDeletePreview()"></app-image-preview>
+  }
+  <button class="submit-news" type="submit" [disabled]="newsForm.invalid">Опубликовать новость</button>
   <button class="close" (click)="close.emit()"><img src="assets/icons/close.svg" alt="Закрыть" title="Закрыть"> </button>
-</div>
+</form>

@@ -1,0 +1,26 @@
+:host {
+  height: 107px;
+  margin-top: 32px;
+}
+
+img {
+  width: 210px;
+  height: 107px;
+}
+
+.close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  left: 242px;
+  bottom: 208px;
+  cursor: pointer;
+
+  img {
+    width: 32px;
+    height: 32px;
+  }
+}
