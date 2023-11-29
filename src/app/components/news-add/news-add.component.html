@@ -1,4 +1,4 @@
-<div class="popup" [formGroup]="newsForm">
+<form class="popup" [formGroup]="newsForm" (ngSubmit)="publish()">
   <div class="title">Добавить новость</div>
   <input formControlName="title" class="title-input" placeholder="Заголовок">
   <textarea formControlName="text" class="text-input" placeholder="Текст"></textarea>
@@ -7,6 +7,6 @@
   @if (preview.length) {
     <app-image-preview [imageBase64]="preview" (close)="onDeletePreview()"></app-image-preview>
   }
-  <button class="submit-news" (click)="publish()">Опубликовать новость</button>
+  <button class="submit-news" type="submit" [disabled]="newsForm.invalid">Опубликовать новость</button>
   <button class="close" (click)="close.emit()"><img src="assets/icons/close.svg" alt="Закрыть" title="Закрыть"> </button>
-</div>
+</form>

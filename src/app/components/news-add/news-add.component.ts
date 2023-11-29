@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, inject, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ImagePreviewComponent } from '../image-preview/image-preview.component';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NewsFeedInterface } from '../../models/news.interface';
 
 @Component({
@@ -18,9 +18,9 @@ export class NewsAddComponent {
   cdr = inject(ChangeDetectorRef);
   preview = '';
   newsForm = new FormGroup({
-    title: new FormControl('', { nonNullable: true }),
-    text: new FormControl('', { nonNullable: true }),
-    image: new FormControl('', { nonNullable: true })
+    title: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
+    text: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
+    image: new FormControl('', { nonNullable: true, validators: [Validators.required] })
   });
 
   private readonly newsKey = 'newsFeed';
@@ -57,28 +57,30 @@ export class NewsAddComponent {
    * (добавить в LocalStorage)
    */
   publish(): void {
-    let newsFeedString = localStorage.getItem(this.newsKey);
-    let newsFeedArr: NewsFeedInterface[] = [];
-    if (newsFeedString) {
-      try {
-        newsFeedArr = JSON.parse(newsFeedString);
-      } catch (err) {
-        console.error(err);
+    if (this.newsForm.valid) {
+      let newsFeedString = localStorage.getItem(this.newsKey);
+      let newsFeedArr: NewsFeedInterface[] = [];
+      if (newsFeedString) {
+        try {
+          newsFeedArr = JSON.parse(newsFeedString);
+        } catch (err) {
+          console.error(err);
+        }
       }
+
+      newsFeedArr.push({
+        categoryType: '',
+        description: '',
+        fullUrl: '',
+        id: 0,
+        publishedDate: Date.now().toString(),
+        title: this.newsForm.get('title')!.value,
+        titleImageUrl: this.preview,
+        url: ''
+      });
+
+      localStorage.setItem(this.newsKey, JSON.stringify(newsFeedArr));
+      this.close.emit();
     }
-
-    newsFeedArr.push({
-      categoryType: '',
-      description: '',
-      fullUrl: '',
-      id: 0,
-      publishedDate: Date.now().toString(),
-      title: this.newsForm.get('title')!.value,
-      titleImageUrl: this.preview,
-      url: ''
-    });
-
-    localStorage.setItem(this.newsKey, JSON.stringify(newsFeedArr));
-    this.close.emit();
   }
 }
