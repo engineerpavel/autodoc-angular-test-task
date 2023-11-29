@@ -4,7 +4,9 @@
   <textarea class="text-input" placeholder="Текст"></textarea>
   <input id="upload-image" type="file" accept="image/*" class="upload-image-input" (change)="selectImage($event)"/>
   <label for="upload-image" class="upload-image">Загрузить изображение</label>
-
+  @if (preview.length) {
+    <app-image-preview [imageBase64]="preview" (close)="onDeletePreview()"></app-image-preview>
+  }
   <button class="submit-news">Опубликовать новость</button>
   <button class="close" (click)="close.emit()"><img src="assets/icons/close.svg" alt="Закрыть" title="Закрыть"> </button>
 </div>

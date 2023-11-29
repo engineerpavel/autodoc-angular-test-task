@@ -1,10 +1,11 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Output } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, inject, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ImagePreviewComponent } from '../image-preview/image-preview.component';
 
 @Component({
   selector: 'app-news-add',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ImagePreviewComponent],
   templateUrl: './news-add.component.html',
   styleUrl: './news-add.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -12,6 +13,7 @@ import { CommonModule } from '@angular/common';
 export class NewsAddComponent {
   @Output()
   close = new EventEmitter<void>();
+  cdr = inject(ChangeDetectorRef);
   preview = '';
 
   /**
@@ -27,10 +29,18 @@ export class NewsAddComponent {
         reader.onload = (e: any) => {
           console.log(e.target.result);
           this.preview = e.target.result;
+          this.cdr.markForCheck();
         };
         reader.readAsDataURL(imgFile);
         console.log('загрузили файл');
       }
     }
+  }
+
+  /**
+   * Удалить выбранное изображение
+   */
+  onDeletePreview(): void {
+    this.preview = '';
   }
 }

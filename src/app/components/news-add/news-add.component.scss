@@ -55,6 +55,7 @@
   color: $link;
   @include text3;
   cursor: pointer;
+  user-select: none;
 }
 
 .upload-image-input {
