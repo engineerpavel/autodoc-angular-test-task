@@ -8,5 +8,5 @@
     <app-image-preview [imageBase64]="preview" (close)="onDeletePreview()"></app-image-preview>
   }
   <button class="submit-news" type="submit" [disabled]="newsForm.invalid">Опубликовать новость</button>
-  <button class="close" (click)="close.emit()"><img src="assets/icons/close.svg" alt="Закрыть" title="Закрыть"> </button>
+  <button type="button" class="close" (click)="close.emit()"><img src="assets/icons/close.svg" alt="Закрыть" title="Закрыть"> </button>
 </form>
