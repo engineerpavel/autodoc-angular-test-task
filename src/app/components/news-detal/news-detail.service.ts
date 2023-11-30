@@ -17,7 +17,6 @@ export class NewsDetailService {
    * @url URL новости
    */
   getNewsData(url: string): Observable<NewsDetailInterface> {
-    console.log('итоговый урл: ', `${this.baseUrl}/api/news/item/${url}`);
     return this.httpClient.get<NewsDetailInterface>(`${this.baseUrl}/api/news/item/${url}`);
   }
 }
