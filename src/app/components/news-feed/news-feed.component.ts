@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { CardComponent } from '../card/card.component';
 import { NewsFeedService } from './news-feed.service';
 import { RouterLink } from '@angular/router';
-import { combineLatest, map } from 'rxjs';
 
 @Component({
   selector: 'app-news-feed',
@@ -18,13 +17,10 @@ import { combineLatest, map } from 'rxjs';
  */
 export class NewsFeedComponent implements OnInit {
   newsFeedService = inject(NewsFeedService);
-  cards = combineLatest([this.newsFeedService.localFeed, this.newsFeedService.serverFeed]).pipe(
-    map((arr) => {
-      return arr[0].concat(arr[1]);
-    })
-  );
+  cards = this.newsFeedService.combinedCards;
 
   ngOnInit(): void {
     this.newsFeedService.getServerFeed().subscribe();
+    this.newsFeedService.initLocalFeed();
   }
 }

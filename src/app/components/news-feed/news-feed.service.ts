@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { NewsFeedInterface } from '../../models/news.interface';
 import { NEWS_KEY } from '../../constants/const';
-import { BehaviorSubject, map, Observable, ReplaySubject, tap } from 'rxjs';
+import { BehaviorSubject, combineLatest, map, Observable, ReplaySubject, tap } from 'rxjs';
 import { NewsFeedApiService } from './news-feed-api.service';
 
 /**
@@ -11,8 +11,13 @@ import { NewsFeedApiService } from './news-feed-api.service';
 @Injectable()
 export class NewsFeedService {
   newsFeedApiService = inject(NewsFeedApiService);
-  serverFeed = new BehaviorSubject<NewsFeedInterface[]>([]);
-  localFeed = new BehaviorSubject<NewsFeedInterface[]>([]);
+  readonly serverFeed = new BehaviorSubject<NewsFeedInterface[]>([]);
+  readonly localFeed = new BehaviorSubject<NewsFeedInterface[]>([]);
+  combinedCards = combineLatest([this.localFeed, this.serverFeed]).pipe(
+    map((arr) => {
+      return arr[0].concat(arr[1]);
+    })
+  );
 
   /**
    * Поместить список новостей из LocalStorage в localFeed
