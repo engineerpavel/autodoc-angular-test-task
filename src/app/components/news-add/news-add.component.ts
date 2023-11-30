@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { ImagePreviewComponent } from '../image-preview/image-preview.component';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NewsFeedInterface } from '../../models/news.interface';
+import { NEWS_KEY } from '../../constants/const';
+import { NewsFeedService } from '../news-feed/news-feed.service';
 
 @Component({
   selector: 'app-news-add',
@@ -15,6 +17,7 @@ import { NewsFeedInterface } from '../../models/news.interface';
 export class NewsAddComponent {
   @Output()
   close = new EventEmitter<void>();
+  newsFeedService = inject(NewsFeedService);
   cdr = inject(ChangeDetectorRef);
   preview = '';
   newsForm = new FormGroup({
@@ -22,8 +25,6 @@ export class NewsAddComponent {
     text: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
     image: new FormControl('', { nonNullable: true, validators: [Validators.required] })
   });
-
-  private readonly newsKey = 'newsFeed';
 
   /**
    * Обработчик выбора изображения
@@ -58,28 +59,18 @@ export class NewsAddComponent {
    */
   publish(): void {
     if (this.newsForm.valid) {
-      let newsFeedString = localStorage.getItem(this.newsKey);
-      let newsFeedArr: NewsFeedInterface[] = [];
-      if (newsFeedString) {
-        try {
-          newsFeedArr = JSON.parse(newsFeedString);
-        } catch (err) {
-          console.error(err);
-        }
-      }
-
-      newsFeedArr.push({
+      const newsObj: NewsFeedInterface = {
         categoryType: '',
         description: '',
         fullUrl: '',
-        id: 0,
+        id: Math.random(),
         publishedDate: Date.now().toString(),
         title: this.newsForm.get('title')!.value,
         titleImageUrl: this.preview,
         url: ''
-      });
-
-      localStorage.setItem(this.newsKey, JSON.stringify(newsFeedArr));
+      };
+      this.newsFeedService.addNewsToLocal(newsObj);
+      this.newsFeedService.initLocalFeed();
       this.close.emit();
     }
   }

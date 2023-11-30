@@ -1,5 +1,5 @@
 <app-header (addNews)="onShowPopup()"></app-header>
 <router-outlet></router-outlet>
 @if (showPopup) {
-  <app-news-add (close)="onClosePopup()"></app-news-add>
+  <app-news-add [@fade] (close)="onClosePopup()"></app-news-add>
 }

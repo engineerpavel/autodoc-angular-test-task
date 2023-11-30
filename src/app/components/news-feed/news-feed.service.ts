@@ -1,22 +1,72 @@
 import { inject, Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { map, Observable } from 'rxjs';
-import { BASE_API_URL } from '../../app.config';
-import { NewsFeedArrInterface, NewsFeedInterface } from '../../models/news.interface';
+import { NewsFeedInterface } from '../../models/news.interface';
+import { NEWS_KEY } from '../../constants/const';
+import { BehaviorSubject, combineLatest, map, Observable, ReplaySubject, tap } from 'rxjs';
+import { NewsFeedApiService } from './news-feed-api.service';
 
 /**
  * Сервис для работы с лентой новостей
  * TODO: Бесконечный скролл
  */
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class NewsFeedService {
-  private readonly httpClient = inject(HttpClient);
-  private readonly baseUrl = inject(BASE_API_URL);
+  newsFeedApiService = inject(NewsFeedApiService);
+  readonly serverFeed = new BehaviorSubject<NewsFeedInterface[]>([]);
+  readonly localFeed = new BehaviorSubject<NewsFeedInterface[]>([]);
+  combinedCards = combineLatest([this.localFeed, this.serverFeed]).pipe(
+    map((arr) => {
+      return arr[0].concat(arr[1]);
+    })
+  );
 
   /**
-   * Получить карточки для ленты новостей
+   * Поместить список новостей из LocalStorage в localFeed
    */
-  getNewsFeed(): Observable<NewsFeedInterface[]> {
-    return this.httpClient.get<NewsFeedArrInterface>(`${this.baseUrl}/api/news/1/10`).pipe(map((cards) => cards.news));
+  initLocalFeed(): void {
+    console.log('initLocalFeed');
+    this.localFeed.next(this.getLocalFeed());
+  }
+
+  setServerFeed(feed: NewsFeedInterface[]): void {
+    this.serverFeed.next(feed);
+  }
+
+  getServerFeed(): Observable<NewsFeedInterface[]> {
+    return this.newsFeedApiService.getNewsFeed().pipe(
+      map((cards) => cards.news),
+      tap((news) => this.setServerFeed(news))
+    );
+  }
+
+  /**
+   * Получить данные из LocalStorage
+   */
+  getLocalFeed(): NewsFeedInterface[] {
+    const newsString = localStorage.getItem(NEWS_KEY);
+    console.log('прочитали строку', newsString);
+    if (newsString) {
+      try {
+        return JSON.parse(newsString);
+      } catch (err) {
+        throw err;
+      }
+    }
+    return [];
+  }
+
+  addNewsToLocal(newsObj: NewsFeedInterface): void {
+    let newsFeedString = localStorage.getItem(NEWS_KEY);
+    let newsFeedArr: NewsFeedInterface[] = [];
+    if (newsFeedString) {
+      try {
+        newsFeedArr = JSON.parse(newsFeedString);
+      } catch (err) {
+        console.error(err);
+      }
+    }
+    newsFeedArr.unshift(newsObj);
+    localStorage.setItem(NEWS_KEY, JSON.stringify(newsFeedArr));
   }
 }
