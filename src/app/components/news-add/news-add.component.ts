@@ -4,7 +4,7 @@ import { ImagePreviewComponent } from '../image-preview/image-preview.component'
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NewsFeedInterface } from '../../models/news.interface';
 import { NEWS_KEY } from '../../constants/const';
-import { NewsFeedService } from '../news-feed/news-feed.service';
+import { NewsFeedService } from '../../services/news-feed.service';
 
 @Component({
   selector: 'app-news-add',

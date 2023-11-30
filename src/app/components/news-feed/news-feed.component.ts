@@ -1,7 +1,7 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CardComponent } from '../card/card.component';
-import { NewsFeedService } from './news-feed.service';
+import { NewsFeedService } from '../../services/news-feed.service';
 import { RouterLink } from '@angular/router';
 import { ScrollBottomDirective } from '../../directives/scroll-bottom.directive';
 import { Subscription, throttleTime } from 'rxjs';

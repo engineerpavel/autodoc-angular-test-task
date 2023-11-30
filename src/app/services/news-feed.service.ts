@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
-import { NewsFeedInterface } from '../../models/news.interface';
-import { NEWS_KEY } from '../../constants/const';
+import { NewsFeedInterface } from '../models/news.interface';
+import { NEWS_KEY } from '../constants/const';
 import { BehaviorSubject, combineLatest, filter, map, Observable, pairwise, ReplaySubject, tap } from 'rxjs';
 import { NewsFeedApiService } from './news-feed-api.service';
 
