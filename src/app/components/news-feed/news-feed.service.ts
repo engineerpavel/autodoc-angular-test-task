@@ -8,7 +8,9 @@ import { NewsFeedApiService } from './news-feed-api.service';
  * Сервис для работы с лентой новостей
  * TODO: Бесконечный скролл
  */
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class NewsFeedService {
   newsFeedApiService = inject(NewsFeedApiService);
   readonly serverFeed = new BehaviorSubject<NewsFeedInterface[]>([]);
@@ -23,6 +25,7 @@ export class NewsFeedService {
    * Поместить список новостей из LocalStorage в localFeed
    */
   initLocalFeed(): void {
+    console.log('initLocalFeed');
     this.localFeed.next(this.getLocalFeed());
   }
 
@@ -42,6 +45,7 @@ export class NewsFeedService {
    */
   getLocalFeed(): NewsFeedInterface[] {
     const newsString = localStorage.getItem(NEWS_KEY);
+    console.log('прочитали строку', newsString);
     if (newsString) {
       try {
         return JSON.parse(newsString);
@@ -50,5 +54,19 @@ export class NewsFeedService {
       }
     }
     return [];
+  }
+
+  addNewsToLocal(newsObj: NewsFeedInterface): void {
+    let newsFeedString = localStorage.getItem(NEWS_KEY);
+    let newsFeedArr: NewsFeedInterface[] = [];
+    if (newsFeedString) {
+      try {
+        newsFeedArr = JSON.parse(newsFeedString);
+      } catch (err) {
+        console.error(err);
+      }
+    }
+    newsFeedArr.unshift(newsObj);
+    localStorage.setItem(NEWS_KEY, JSON.stringify(newsFeedArr));
   }
 }

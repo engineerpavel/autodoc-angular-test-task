@@ -4,6 +4,7 @@ import { ImagePreviewComponent } from '../image-preview/image-preview.component'
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NewsFeedInterface } from '../../models/news.interface';
 import { NEWS_KEY } from '../../constants/const';
+import { NewsFeedService } from '../news-feed/news-feed.service';
 
 @Component({
   selector: 'app-news-add',
@@ -16,6 +17,7 @@ import { NEWS_KEY } from '../../constants/const';
 export class NewsAddComponent {
   @Output()
   close = new EventEmitter<void>();
+  newsFeedService = inject(NewsFeedService);
   cdr = inject(ChangeDetectorRef);
   preview = '';
   newsForm = new FormGroup({
@@ -57,17 +59,7 @@ export class NewsAddComponent {
    */
   publish(): void {
     if (this.newsForm.valid) {
-      let newsFeedString = localStorage.getItem(NEWS_KEY);
-      let newsFeedArr: NewsFeedInterface[] = [];
-      if (newsFeedString) {
-        try {
-          newsFeedArr = JSON.parse(newsFeedString);
-        } catch (err) {
-          console.error(err);
-        }
-      }
-
-      newsFeedArr.push({
+      const newsObj: NewsFeedInterface = {
         categoryType: '',
         description: '',
         fullUrl: '',
@@ -76,9 +68,9 @@ export class NewsAddComponent {
         title: this.newsForm.get('title')!.value,
         titleImageUrl: this.preview,
         url: ''
-      });
-
-      localStorage.setItem(NEWS_KEY, JSON.stringify(newsFeedArr));
+      };
+      this.newsFeedService.addNewsToLocal(newsObj);
+      this.newsFeedService.initLocalFeed();
       this.close.emit();
     }
   }

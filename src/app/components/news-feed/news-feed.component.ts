@@ -8,7 +8,6 @@ import { RouterLink } from '@angular/router';
   selector: 'app-news-feed',
   standalone: true,
   imports: [CommonModule, CardComponent, RouterLink],
-  providers: [NewsFeedService],
   templateUrl: './news-feed.component.html',
   styleUrl: './news-feed.component.scss'
 })
