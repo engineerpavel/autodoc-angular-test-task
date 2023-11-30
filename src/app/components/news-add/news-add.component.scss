@@ -21,8 +21,13 @@
   border-radius: 32px;
   background: $bg-color;
 
+  @media (max-width: $pad) {
+    width: 632px;
+  }
+
   @media (max-width: $mobile) {
     padding: 16px;
+    width:343px;
   }
 }
 
@@ -163,6 +168,7 @@
   @include text1;
   @media (max-width: $mobile) {
     margin: 16px 0;
+    @include text2;
   }
 }
 
