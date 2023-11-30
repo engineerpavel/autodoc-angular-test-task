@@ -25,7 +25,6 @@ export class NewsFeedService {
    * Поместить список новостей из LocalStorage в localFeed
    */
   initLocalFeed(): void {
-    console.log('initLocalFeed');
     this.localFeed.next(this.getLocalFeed());
   }
 
@@ -67,5 +66,6 @@ export class NewsFeedService {
     }
     newsFeedArr.unshift(newsObj);
     localStorage.setItem(NEWS_KEY, JSON.stringify(newsFeedArr));
+    this.initLocalFeed();
   }
 }

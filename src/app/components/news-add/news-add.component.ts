@@ -70,7 +70,6 @@ export class NewsAddComponent {
         url: ''
       };
       this.newsFeedService.addNewsToLocal(newsObj);
-      this.newsFeedService.initLocalFeed();
       this.close.emit();
     }
   }

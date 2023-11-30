@@ -2,7 +2,7 @@
   <a class='header'>
     Автомобильные новости
   </a>
-  <div class='cards'>
+  <div class='cards' appScrollBottom (nearEnd)="onScroll()">
     @for (card of cards | async; track $index) {
       <app-card [cardData]=card [routerLink]="['/news/', card.url]"></app-card>
     }
