@@ -6,7 +6,6 @@ import { NewsFeedApiService } from './news-feed-api.service';
 
 /**
  * Сервис для работы с лентой новостей
- * TODO: Бесконечный скролл
  */
 @Injectable({
   providedIn: 'root'

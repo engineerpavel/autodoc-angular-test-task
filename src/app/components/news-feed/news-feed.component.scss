@@ -15,9 +15,6 @@
   @include heading1;
 }
 
-//TODO: column-gap: 24px,
-// разобраться, почему перенос срабатывает
-// Вероятно, гэп добавляется в конце
 .cards {
   padding-top: 40px;
   display: flex;
