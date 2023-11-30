@@ -1,12 +1,11 @@
 import { inject, Injectable } from '@angular/core';
-import { NewsFeedInterface } from '../../models/news.interface';
-import { NEWS_KEY } from '../../constants/const';
-import { BehaviorSubject, combineLatest, map, Observable, ReplaySubject, tap } from 'rxjs';
+import { NewsFeedInterface } from '../models/news.interface';
+import { NEWS_KEY } from '../constants/const';
+import { BehaviorSubject, combineLatest, filter, map, Observable, pairwise, ReplaySubject, tap } from 'rxjs';
 import { NewsFeedApiService } from './news-feed-api.service';
 
 /**
  * Сервис для работы с лентой новостей
- * TODO: Бесконечный скролл
  */
 @Injectable({
   providedIn: 'root'
@@ -25,7 +24,6 @@ export class NewsFeedService {
    * Поместить список новостей из LocalStorage в localFeed
    */
   initLocalFeed(): void {
-    console.log('initLocalFeed');
     this.localFeed.next(this.getLocalFeed());
   }
 
@@ -33,10 +31,13 @@ export class NewsFeedService {
     this.serverFeed.next(feed);
   }
 
-  getServerFeed(): Observable<NewsFeedInterface[]> {
-    return this.newsFeedApiService.getNewsFeed().pipe(
+  getServerFeed(pageNum: number): Observable<NewsFeedInterface[]> {
+    return this.newsFeedApiService.getNewsFeed(pageNum).pipe(
       map((cards) => cards.news),
-      tap((news) => this.setServerFeed(news))
+      tap((news) => {
+        const mergedNews = this.serverFeed.value.concat(news);
+        this.setServerFeed(mergedNews);
+      })
     );
   }
 
@@ -45,7 +46,6 @@ export class NewsFeedService {
    */
   getLocalFeed(): NewsFeedInterface[] {
     const newsString = localStorage.getItem(NEWS_KEY);
-    console.log('прочитали строку', newsString);
     if (newsString) {
       try {
         return JSON.parse(newsString);
@@ -63,10 +63,11 @@ export class NewsFeedService {
       try {
         newsFeedArr = JSON.parse(newsFeedString);
       } catch (err) {
-        console.error(err);
+        throw err;
       }
     }
     newsFeedArr.unshift(newsObj);
     localStorage.setItem(NEWS_KEY, JSON.stringify(newsFeedArr));
+    this.initLocalFeed();
   }
 }
