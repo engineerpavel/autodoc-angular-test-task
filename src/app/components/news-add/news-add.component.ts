@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { ImagePreviewComponent } from '../image-preview/image-preview.component';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NewsFeedInterface } from '../../models/news.interface';
-import { NEWS_KEY } from '../../constants/const';
 import { NewsFeedService } from '../../services/news-feed.service';
 
 @Component({
@@ -25,6 +24,7 @@ export class NewsAddComponent {
     text: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
     image: new FormControl('', { nonNullable: true, validators: [Validators.required] })
   });
+  isFinal = false;
 
   /**
    * Обработчик выбора изображения
@@ -70,7 +70,11 @@ export class NewsAddComponent {
         url: ''
       };
       this.newsFeedService.addNewsToLocal(newsObj);
-      this.close.emit();
+      this.isFinal = true;
     }
+  }
+
+  closePopup(): void {
+    this.close.emit();
   }
 }

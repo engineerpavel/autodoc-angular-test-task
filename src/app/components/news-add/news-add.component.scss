@@ -20,10 +20,17 @@
   padding: 40px 56px;
   border-radius: 32px;
   background: $bg-color;
+
+  @media (max-width: $mobile) {
+    padding: 16px;
+  }
 }
 
 .title {
   @include heading2;
+  @media (max-width: $mobile) {
+    @include heading3;
+  }
 }
 
 .title-input {
@@ -32,6 +39,10 @@
   background: $black-05;
   border-radius: 32px;
   @include text3;
+  @media (max-width: $mobile) {
+    padding: 16px;
+    @include text4;
+  }
 }
 
 .text-input {
@@ -42,6 +53,11 @@
   background: $black-05;
   @include text3;
   height: 207px;
+  @media (max-width: $mobile) {
+    padding: 16px 16px 8px 16px;
+    margin-top: 16px;
+    @include text4;
+  }
 }
 
 .upload-image {
@@ -56,6 +72,10 @@
   @include text3;
   cursor: pointer;
   user-select: none;
+  @media (max-width: $mobile) {
+    margin-top: 16px;
+    @include text4;
+  }
 }
 
 .upload-image-input {
@@ -78,6 +98,9 @@
   background: $black-100;
   color: $white-100;
   transition: all .2s ease-in;
+  @media (max-width: $mobile) {
+    @include text4;
+  }
 }
 
 .submit-news:disabled {
@@ -96,4 +119,23 @@
   top: 0;
   cursor: pointer;
 }
+
+.content {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  height: 107px;
+  margin-top: 48px;
+
+  app-image-preview {
+    margin: 0;
+  }
+}
+
+.text {
+  margin-left: 16px;
+  @include text1;
+}
+
+
 

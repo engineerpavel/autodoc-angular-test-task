@@ -12,6 +12,9 @@ export class ImagePreviewComponent {
   @Input()
   imageBase64?: string;
 
+  @Input()
+  disableCloseBtn = false;
+
   @Output()
   close = new EventEmitter<void>();
 }
