@@ -1,4 +1,4 @@
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CardComponent } from '../card/card.component';
 import { NewsFeedService } from '../../services/news-feed.service';
@@ -11,7 +11,8 @@ import { Subscription, throttleTime } from 'rxjs';
   standalone: true,
   imports: [CommonModule, CardComponent, RouterLink, ScrollBottomDirective],
   templateUrl: './news-feed.component.html',
-  styleUrl: './news-feed.component.scss'
+  styleUrl: './news-feed.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 /**
  * Компонент со списком новостей
