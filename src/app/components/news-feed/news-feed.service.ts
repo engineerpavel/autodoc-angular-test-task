@@ -45,7 +45,6 @@ export class NewsFeedService {
    */
   getLocalFeed(): NewsFeedInterface[] {
     const newsString = localStorage.getItem(NEWS_KEY);
-    console.log('прочитали строку', newsString);
     if (newsString) {
       try {
         return JSON.parse(newsString);
@@ -63,7 +62,7 @@ export class NewsFeedService {
       try {
         newsFeedArr = JSON.parse(newsFeedString);
       } catch (err) {
-        console.error(err);
+        throw err;
       }
     }
     newsFeedArr.unshift(newsObj);
