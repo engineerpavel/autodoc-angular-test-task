@@ -9,7 +9,11 @@
 
 img {
   height: 379px;
-border-radius: 32px;
+  border-radius: 32px;
+  @media (max-width: $mobile) {
+    width: 343px;
+    height: 343px;
+  }
 }
 
 

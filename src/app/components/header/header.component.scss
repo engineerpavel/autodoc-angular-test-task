@@ -29,6 +29,7 @@
 
   @media (max-width: $mobile) {
     @include text4;
+    width: 162px;
   }
 }
 
@@ -37,18 +38,41 @@
   cursor: pointer;
 }
 
-.icon,
-.button {
+.icon {
+  width: 60px;
+  @media (max-width: $mobile) {
+    width: 30px;
+  }
   img {
-    width: 60px;
     @media (max-width: $mobile) {
       width: 30px;
     }
   }
 }
 
+.text {
+  @media (max-width: $mobile) {
+    margin-right: auto;
+    margin-left: auto;
+  }
+}
+
+
+.button {
+  img {
+    width: 60px;
+  }
+}
+
 .button {
   cursor: pointer;
+  @media (max-width: $mobile) {
+    width: 60px;
+    display: block;
+    position: fixed;
+    bottom: 16px;
+    right: 16px;
+  }
 }
 
 

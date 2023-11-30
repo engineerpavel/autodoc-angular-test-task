@@ -10,6 +10,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  @media (max-width: $mobile) {
+    height: 100%;
+  }
 }
 
 .popup {
