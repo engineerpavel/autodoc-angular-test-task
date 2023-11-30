@@ -1,5 +1,5 @@
 import { Directive, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { fromEvent, Subscription, throttleTime } from 'rxjs';
+import { filter, fromEvent, pairwise, Subscription, throttleTime } from 'rxjs';
 
 @Directive({
   selector: '[appScrollBottom]',
@@ -7,7 +7,7 @@ import { fromEvent, Subscription, throttleTime } from 'rxjs';
 })
 export class ScrollBottomDirective implements OnInit, OnDestroy {
   @Output() nearEnd: EventEmitter<void> = new EventEmitter<void>();
-  @Input() threshold = 120;
+  @Input() threshold = 200;
   private window!: Window;
   private subscription = new Subscription();
 
@@ -25,7 +25,11 @@ export class ScrollBottomDirective implements OnInit, OnDestroy {
   scrollHandler(): void {
     this.subscription.add(
       fromEvent(this.window, 'scroll')
-        .pipe(throttleTime(200))
+        .pipe(
+          pairwise(),
+          filter(([prev, curr]) => prev !== curr),
+          throttleTime(200)
+        )
         .subscribe((event) => {
           const heightOfWholePage = this.window.document.documentElement.scrollHeight;
 

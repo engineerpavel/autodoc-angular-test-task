@@ -14,7 +14,7 @@ export class NewsFeedApiService {
   /**
    * Получить карточки для ленты новостей
    */
-  getNewsFeed(): Observable<NewsFeedArrInterface> {
-    return this.httpClient.get<NewsFeedArrInterface>(`${this.baseUrl}/api/news/1/10`);
+  getNewsFeed(pageNum: number): Observable<NewsFeedArrInterface> {
+    return this.httpClient.get<NewsFeedArrInterface>(`${this.baseUrl}/api/news/${pageNum}/10`);
   }
 }

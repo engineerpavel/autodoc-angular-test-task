@@ -1,10 +1,10 @@
-import { Component, HostListener, inject, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CardComponent } from '../card/card.component';
 import { NewsFeedService } from './news-feed.service';
 import { RouterLink } from '@angular/router';
-import { fromEvent } from 'rxjs';
 import { ScrollBottomDirective } from '../../directives/scroll-bottom.directive';
+import { Subscription, throttleTime } from 'rxjs';
 
 @Component({
   selector: 'app-news-feed',
@@ -16,16 +16,23 @@ import { ScrollBottomDirective } from '../../directives/scroll-bottom.directive'
 /**
  * Компонент со списком новостей
  */
-export class NewsFeedComponent implements OnInit {
+export class NewsFeedComponent implements OnInit, OnDestroy {
   newsFeedService = inject(NewsFeedService);
   cards = this.newsFeedService.combinedCards;
+  private currentPage = 1;
+  private subscription = new Subscription();
 
   ngOnInit(): void {
-    this.newsFeedService.getServerFeed().subscribe();
+    this.subscription.add(this.newsFeedService.getServerFeed(this.currentPage).subscribe());
     this.newsFeedService.initLocalFeed();
   }
 
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
+
   onScroll(): void {
-    console.log('scrollDown!');
+    this.currentPage += 1;
+    this.subscription.add(this.newsFeedService.getServerFeed(this.currentPage).pipe(throttleTime(500)).subscribe());
   }
 }

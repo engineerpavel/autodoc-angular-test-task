@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { NewsFeedInterface } from '../../models/news.interface';
 import { NEWS_KEY } from '../../constants/const';
-import { BehaviorSubject, combineLatest, map, Observable, ReplaySubject, tap } from 'rxjs';
+import { BehaviorSubject, combineLatest, filter, map, Observable, pairwise, ReplaySubject, tap } from 'rxjs';
 import { NewsFeedApiService } from './news-feed-api.service';
 
 /**
@@ -32,10 +32,13 @@ export class NewsFeedService {
     this.serverFeed.next(feed);
   }
 
-  getServerFeed(): Observable<NewsFeedInterface[]> {
-    return this.newsFeedApiService.getNewsFeed().pipe(
+  getServerFeed(pageNum: number): Observable<NewsFeedInterface[]> {
+    return this.newsFeedApiService.getNewsFeed(pageNum).pipe(
       map((cards) => cards.news),
-      tap((news) => this.setServerFeed(news))
+      tap((news) => {
+        const mergedNews = this.serverFeed.value.concat(news);
+        this.setServerFeed(mergedNews);
+      })
     );
   }
 
