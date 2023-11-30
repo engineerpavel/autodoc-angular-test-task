@@ -9,17 +9,23 @@
         <app-image-preview [imageBase64]="preview" (close)="onDeletePreview()"></app-image-preview>
       }
       <button class="submit-news" type="submit" [disabled]="newsForm.invalid">Опубликовать новость</button>
-      <button type="button" class="close" (click)="close.emit()"><img src="assets/icons/close.svg" alt="Закрыть" title="Закрыть"></button>
+      <button type="button" class="close" (click)="close.emit()">
+        <img class="not-mobile" src="assets/icons/close.svg" alt="Закрыть" title="Закрыть">
+        <img class="mobile" src="assets/icons/close-mobile.svg" alt="Закрыть" title="Закрыть">
+      </button>
     </form>
   } @else {
     <div class="popup">
       <div class="title">Готово</div>
       <div class="content">
-        <app-image-preview [imageBase64]="preview" [disableCloseBtn]="true"></app-image-preview>
+        <img [src]="preview"/>
         <div class="text">{{newsForm.get('title')!.value}}</div>
       </div>
-      <button class="submit-news" type="button" (click)="closePopup()">Окей</button>
-      <button type="button" class="close" (click)="close.emit()"><img src="assets/icons/close.svg" alt="Закрыть" title="Закрыть"></button>
+      <button class="submit-news final" type="button" (click)="closePopup()">Окей</button>
+      <button type="button" class="close" (click)="close.emit()">
+        <img class="not-mobile" src="assets/icons/close.svg" alt="Закрыть" title="Закрыть">
+        <img class="mobile" src="assets/icons/close-mobile.svg" alt="Закрыть" title="Закрыть">
+      </button>
     </div>
 
 }

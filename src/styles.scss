@@ -26,5 +26,19 @@ body {
   @include text2;
 }
 
+.not-mobile {
+  display: block;
+  @media (max-width: $mobile) {
+    display: none;
+  }
+}
+
+.mobile {
+  display: none;
+  @media (max-width: $mobile) {
+    display: block;
+  }
+}
+
 
 

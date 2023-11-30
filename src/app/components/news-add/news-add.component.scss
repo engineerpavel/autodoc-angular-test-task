@@ -101,6 +101,16 @@
   @media (max-width: $mobile) {
     @include text4;
   }
+
+  &.final {
+    margin-top: 48px;
+    @media (max-width: $pad) {
+      margin-top: 32px;
+    }
+    @media (max-width: $mobile) {
+      margin-top: 16px;
+    }
+  }
 }
 
 .submit-news:disabled {
@@ -118,6 +128,9 @@
   right: -60px;
   top: 0;
   cursor: pointer;
+  @media (max-width: $mobile) {
+    right: 0;
+  }
 }
 
 .content {
@@ -127,15 +140,33 @@
   height: 107px;
   margin-top: 48px;
 
-  app-image-preview {
-    margin: 0;
+  @media (max-width: $pad) {
+    margin-top: 32px;
+  }
+
+  @media (max-width: $mobile) {
+    flex-direction: column;
+  }
+
+  img {
+    width: 210px;
+    height: 107px;
+    border-radius: 16px;
+    @media (max-width: $mobile) {
+      width: 100%;
+    }
   }
 }
 
 .text {
   margin-left: 16px;
   @include text1;
+  @media (max-width: $mobile) {
+    margin: 16px 0;
+  }
 }
+
+
 
 
 
