@@ -1,7 +1,17 @@
 import { inject, Injectable } from '@angular/core';
 import { NewsFeedInterface } from '../models/news.interface';
 import { NEWS_KEY } from '../constants/const';
-import { BehaviorSubject, combineLatest, filter, map, Observable, pairwise, ReplaySubject, tap } from 'rxjs';
+import {
+  BehaviorSubject,
+  combineLatest,
+  filter,
+  map,
+  Observable,
+  pairwise,
+  ReplaySubject,
+  tap,
+  throttleTime
+} from 'rxjs';
 import { NewsFeedApiService } from './news-feed-api.service';
 
 /**
@@ -19,6 +29,7 @@ export class NewsFeedService {
       return arr[0].concat(arr[1]);
     })
   );
+  private currentPage = 0;
 
   /**
    * Поместить список новостей из LocalStorage в localFeed
@@ -31,8 +42,10 @@ export class NewsFeedService {
     this.serverFeed.next(feed);
   }
 
-  getServerFeed(pageNum: number): Observable<NewsFeedInterface[]> {
-    return this.newsFeedApiService.getNewsFeed(pageNum).pipe(
+  getServerFeed(): Observable<NewsFeedInterface[]> {
+    this.currentPage += 1;
+    return this.newsFeedApiService.getNewsFeed(this.currentPage).pipe(
+      throttleTime(500),
       map((cards) => cards.news),
       tap((news) => {
         const mergedNews = this.serverFeed.value.concat(news);

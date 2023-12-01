@@ -20,11 +20,10 @@ import { Subscription, throttleTime } from 'rxjs';
 export class NewsFeedComponent implements OnInit, OnDestroy {
   newsFeedService = inject(NewsFeedService);
   cards = this.newsFeedService.combinedCards;
-  private currentPage = 1;
   private subscription = new Subscription();
 
   ngOnInit(): void {
-    this.subscription.add(this.newsFeedService.getServerFeed(this.currentPage).subscribe());
+    this.subscription.add(this.newsFeedService.getServerFeed().subscribe());
     this.newsFeedService.initLocalFeed();
   }
 
@@ -33,7 +32,6 @@ export class NewsFeedComponent implements OnInit, OnDestroy {
   }
 
   onScroll(): void {
-    this.currentPage += 1;
-    this.subscription.add(this.newsFeedService.getServerFeed(this.currentPage).pipe(throttleTime(500)).subscribe());
+    this.subscription.add(this.newsFeedService.getServerFeed().subscribe());
   }
 }
