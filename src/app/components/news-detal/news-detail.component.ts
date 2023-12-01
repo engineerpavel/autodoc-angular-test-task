@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject, Input } from '@angular/core';
 import { CommonModule, IMAGE_CONFIG } from '@angular/common';
-import { NewsDetailService } from './news-detail.service';
+import { NewsDetailApiService } from '../../services/news-detail-api.service';
 import { Observable } from 'rxjs';
 import { NewsDetailInterface } from '../../models/news.interface';
 import { SanitizePipe } from '../../pipes/sanitize.pipe';
@@ -10,7 +10,7 @@ import { SanitizePipe } from '../../pipes/sanitize.pipe';
   standalone: true,
   imports: [CommonModule, SanitizePipe],
   providers: [
-    NewsDetailService,
+    NewsDetailApiService,
     {
       provide: IMAGE_CONFIG,
       useValue: {
@@ -27,7 +27,7 @@ import { SanitizePipe } from '../../pipes/sanitize.pipe';
  * Отображает новость подробно
  */
 export class NewsDetailComponent {
-  newsDetailService = inject(NewsDetailService);
+  newsDetailService = inject(NewsDetailApiService);
   newsData = new Observable<NewsDetailInterface>();
   @Input()
   set url(urlString: string) {
