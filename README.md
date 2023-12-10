@@ -24,6 +24,8 @@ https://webapi.autodoc.ru/api/news/item/avto-novosti/volkswagen_amarok_pickup
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.0.3.
 Node version: v20.9.0
 
+[Здесь](https://autodoc-test-task.engineerpavel.ru/) можно посмотреть результат, не разворачивая проект у себя.
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
